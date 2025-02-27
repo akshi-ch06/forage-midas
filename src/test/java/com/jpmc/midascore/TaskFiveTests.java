@@ -7,11 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
+@SuppressWarnings("unused")
 public class TaskFiveTests {
     static final Logger logger = LoggerFactory.getLogger(TaskFiveTests.class);
 
@@ -27,7 +26,6 @@ public class TaskFiveTests {
     @Autowired
     private BalanceQuerier balanceQuerier;
 
-
     @Test
     void task_five_verifier() throws InterruptedException {
         userPopulator.populate();
@@ -37,8 +35,6 @@ public class TaskFiveTests {
         }
         Thread.sleep(2000);
 
-        logger.info("----------------------------------------------------------");
-        logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");
         logger.info("submit the following output to complete the task (include begin and end output denotations)");
         StringBuilder output = new StringBuilder("\n").append("---begin output ---").append("\n");

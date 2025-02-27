@@ -3,6 +3,7 @@ package com.jpmc.midascore.foundation;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@SuppressWarnings("unused")
 public class Transaction {
     private long senderId;
     private long recipientId;
@@ -36,6 +37,7 @@ public class Transaction {
     public float getAmount() {
         return amount;
     }
+
 
     public void setAmount(float amount) {
         this.amount = amount;

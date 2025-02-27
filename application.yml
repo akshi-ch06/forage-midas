@@ -1,0 +1,7 @@
+spring:
+kafka:
+  topic: midas-transactions
+  consumer:
+    group-id: midas-group
+    auto-offset-reset: earliest
+  bootstrap-servers: localhost:9092

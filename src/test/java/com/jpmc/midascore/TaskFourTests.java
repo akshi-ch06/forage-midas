@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest
 @DirtiesContext
+@SuppressWarnings("unused")
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 public class TaskFourTests {
     static final Logger logger = LoggerFactory.getLogger(TaskFourTests.class);
@@ -38,7 +39,8 @@ public class TaskFourTests {
         logger.info("----------------------------------------------------------");
         logger.info("use your debugger to find out what wilbur's balance is after all transactions are processed");
         logger.info("kill this test once you find the answer");
-        while (true) {
+        int maxRetries = 5;
+        for (int i = 0; i < maxRetries; i++) {
             Thread.sleep(20000);
             logger.info("...");
         }
