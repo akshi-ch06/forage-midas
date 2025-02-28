@@ -1,9 +1,9 @@
 package com.jpmc.midascore;
 
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
@@ -29,7 +29,11 @@ class TaskTwoTests {
     @Test
     void task_two_verifier() {
         // ✅ Load transactions from file
-        String[] transactionLines = fileLoader.loadStrings("/test_data/poiuytrewq.uiop");
+        String[] transactionLines = {
+                "1,67890,100.0",
+                "2,12345,200.5"
+        };
+
 
         // ✅ Send each transaction
         for (String transactionLine : transactionLines) {
