@@ -1,8 +1,9 @@
 package com.jpmc.midascore.controller;
 
 import com.jpmc.midascore.component.TransactionProducer;
-import com.jpmc.midascore.foundation.Transaction;
 import org.springframework.web.bind.annotation.*;
+import com.jpmc.midascore.model.Transaction;
+
 
 @RestController
 @SuppressWarnings("unused")

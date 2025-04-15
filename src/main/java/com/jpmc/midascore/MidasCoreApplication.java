@@ -1,6 +1,5 @@
 package com.jpmc.midascore;
 
-import com.jpmc.midascore.foundation.Transaction;
 import com.jpmc.midascore.component.TransactionProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
+import com.jpmc.midascore.model.Transaction;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 @EnableKafka
 @SpringBootApplication
+@EnableJpaRepositories("com.jpmc.midascore.repository")
 @SuppressWarnings("unused")
 public class MidasCoreApplication {
     // ✅ Define Logger

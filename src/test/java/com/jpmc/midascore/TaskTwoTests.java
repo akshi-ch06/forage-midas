@@ -5,17 +5,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.test.context.EmbeddedKafka;
+//import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import com.jpmc.midascore.component.TransactionProducer;
-import com.jpmc.midascore.foundation.Transaction;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import com.jpmc.midascore.model.Transaction;
+
+
 
 import static org.awaitility.Awaitility.await;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, controlledShutdown = true, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092", "log.dirs=/tmp/kafka-logs"})
+@ExtendWith(SpringExtension.class)
 @SuppressWarnings("unused")
 class TaskTwoTests {
     static final Logger logger = LoggerFactory.getLogger(TaskTwoTests.class);
@@ -28,16 +32,15 @@ class TaskTwoTests {
 
     @Test
     void task_two_verifier() {
-        // ✅ Load transactions from file
-        String[] transactionLines = {
-                "1,67890,100.0",
-                "2,12345,200.5"
-        };
-
+        logger.info("✅ Embedded Kafka Test Started");
+        // ✅ Load transactions from file instead of hardcoded values
+        String[] transactionLines = fileLoader.loadStrings("/test_data/poiuytrewq.uiop");
 
         // ✅ Send each transaction
         for (String transactionLine : transactionLines) {
+            System.out.println("Raw Transaction: " + transactionLine);
             Transaction transaction = parseTransaction(transactionLine);
+            System.out.println("Parsed Transaction: " + transaction);
             kafkaProducer.sendTransaction(transaction);
             logger.info("Sent transaction: {}", transaction);
         }

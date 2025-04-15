@@ -1,6 +1,27 @@
 spring:
-kafka:
-  topic: midas-transactions
+  h2:
+    console:
+      enabled: true  # Enable H2 web console
+      path: /h2-console  # URL: http://localhost:8080/h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:midasdb  # In-memory database (reset on restart)
+    driverClassName: org.h2.Driver
+    username: sa
+    password: root06
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update  # Auto-create/update tables
+    show-sql: true  # Show SQL queries in logs
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springframework.boot: DEBUG
+    org.hibernate.SQL: DEBUG
+general:
+  kafka-topic: midas-transactions
   consumer:
     group-id: midas-group
     auto-offset-reset: earliest
